@@ -23,7 +23,15 @@
     <h2>Tasks:</h2>
     <ul>
         {% for task in tasks %}
-            <li>{{ task.title }} - {{ task.description }}</li>
+            <li>
+                {{ task.title }} - {{ task.description }}
+                <form method="POST" action="{{ url_for('update_task', task_id=task.id) }}" style="display:inline;">
+                    <button type="submit">Update</button>
+                </form>
+                <form method="POST" action="{{ url_for('delete_task', task_id=task.id) }}" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
         {% endfor %}
     </ul>
 </body>

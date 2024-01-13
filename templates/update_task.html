@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Task</title>
+</head>
+<body>
+    <h1>Update Task</h1>
+    <form method="POST" action="{{ url_for('update_task', task_id=task.id) }}">
+        {{ form.hidden_tag() }}
+        <label for="{{ form.title.id }}">Title:</label>
+        {{ form.title() }}
+        <br>
+        <label for="{{ form.description.id }}">Description:</label>
+        {{ form.description() }}
+        <br>
+        {{ form.submit() }}
+    </form>
+</body>
+</html>
