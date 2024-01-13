@@ -4,35 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flask CRUD App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-    <h1>Welcome to the Flask CRUD App!</h1>
+    <div class="container mt-5">
+        <h1 class="mb-4">Welcome to the Flask CRUD App!</h1>
 
-    <h2>Add a Task:</h2>
-    <form method="POST" action="{{ url_for('index') }}">
-        {{ form.hidden_tag() }}
-        <label for="{{ form.title.id }}">Title:</label>
-        {{ form.title() }}
-        <br>
-        <label for="{{ form.description.id }}">Description:</label>
-        {{ form.description() }}
-        <br>
-        {{ form.submit() }}
-    </form>
+        <h2>Add a Task:</h2>
+        <form method="POST" action="{{ url_for('index') }}" class="mb-3">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                <label for="{{ form.title.id }}">Title:</label>
+                {{ form.title(class="form-control") }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.description.id }}">Description:</label>
+                {{ form.description(class="form-control") }}
+            </div>
+            <button type="submit" class="btn btn-primary">Add Task</button>
+        </form>
 
-    <h2>Tasks:</h2>
-    <ul>
-        {% for task in tasks %}
-            <li>
-                {{ task.title }} - {{ task.description }}
-                <form method="POST" action="{{ url_for('update_task', task_id=task.id) }}" style="display:inline;">
-                    <button type="submit">Update</button>
-                </form>
-                <form method="POST" action="{{ url_for('delete_task', task_id=task.id) }}" style="display:inline;">
-                    <button type="submit">Delete</button>
-                </form>
-            </li>
-        {% endfor %}
-    </ul>
+        <h2>Tasks:</h2>
+        <ul class="list-group">
+            {% for task in tasks %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ task.title }} - {{ task.description }}
+                    <div class="btn-group" role="group">
+                        <form method="POST" action="{{ url_for('update_task', task_id=task.id) }}">
+                            <button type="submit" class="btn btn-warning btn-sm">Update</button>
+                        </form>
+                        <form method="POST" action="{{ url_for('delete_task', task_id=task.id) }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>
