@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired
+from flask import flash
 
 
 app = Flask(__name__)
@@ -36,6 +37,7 @@ def index():
                         description=form.description.data)
         db.session.add(new_task)
         db.session.commit()
+        flash('Task added successfully', 'success')
         return redirect(url_for('index'))
 
     return render_template('index.html', tasks=tasks, form=form)
@@ -46,6 +48,7 @@ def delete_task(task_id):
     task = Task.query.get_or_404(task_id)
     db.session.delete(task)
     db.session.commit()
+    flash('Task deleted successfully', 'success')
     return redirect(url_for('index'))
 
 
@@ -58,6 +61,7 @@ def update_task(task_id):
         task.title = form.title.data
         task.description = form.description.data
         db.session.commit()
+        flash('Task updated successfully', 'success')
         return redirect(url_for('index'))
 
     return render_template('update_task.html', task=task, form=form)
