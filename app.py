@@ -1,15 +1,15 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired
-from flask import flash
 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 # Replace with a secure secret key
 app.config['SECRET_KEY'] = 'your_secret_key'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
@@ -29,7 +29,9 @@ class TaskForm(FlaskForm):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    tasks = Task.query.all()
+    page = request.args.get('page', 1, type=int)
+    per_page = 3  # Adjust this number based on your preference
+    tasks = Task.query.paginate(page=page, per_page=per_page)
     form = TaskForm()
 
     if request.method == 'POST' and form.validate_on_submit():
