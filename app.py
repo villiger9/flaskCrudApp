@@ -45,6 +45,21 @@ def index():
     return render_template('index.html', tasks=tasks, form=form)
 
 
+@app.route('/add_task', methods=['GET', 'POST'])
+def add_task():
+    form = TaskForm()
+
+    if request.method == 'POST' and form.validate_on_submit():
+        new_task = Task(title=form.title.data,
+                        description=form.description.data)
+        db.session.add(new_task)
+        db.session.commit()
+        flash('Task added successfully', 'success')
+        return redirect(url_for('index'))
+
+    return render_template('add_task.html', form=form)
+
+
 @app.route('/delete_task/<int:task_id>', methods=['POST'])
 def delete_task(task_id):
     task = Task.query.get_or_404(task_id)
