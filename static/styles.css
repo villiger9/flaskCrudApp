@@ -79,7 +79,63 @@ li:hover {
 }
 
 /* Add a hover effect to links */
-a:hover {
+/* a:hover {
     text-decoration: underline;
     color: #0056b3;
+} */
+
+/* Add a flame animation to the delete button on hover */
+form button.btn-danger:hover {
+    background-color: #ffcc80; /* Change to a fiery color */
+    background-image: linear-gradient(to bottom, #ffcc80, #ff5722);
+    animation: cartoonFlame  1s infinite alternate;
 }
+
+/* Define the flame animation */
+@keyframes cartoonFlame {
+    0% {
+        transform: scale(1) translateY(0);
+        box-shadow: 0 0 10px 2px #ff5722, 0 0 20px 4px #ffcc80;
+    }
+    50% {
+        transform: scale(1.1) translateY(-5px);
+        box-shadow: 0 0 20px 4px #ffcc80, 0 0 30px 6px #ff5722;
+    }
+    100% {
+        transform: scale(1) translateY(0);
+        box-shadow: 0 0 10px 2px #ff5722, 0 0 20px 4px #ffcc80;
+    }
+}
+
+/* Add a pen animation to the Add Task button on hover */
+a.btn-primary {
+    position: relative;
+    overflow: hidden;
+}
+
+a.btn-primary::before {
+    content: '\2710'; /* Unicode character for a pen symbol */
+    font-size: 24px;
+    color: #f8d427; /* Pen color */
+    position: absolute;
+    opacity: 0;
+    bottom: 25%;
+    right: 15%;
+    transform: translate(50%, 50%) rotate(45deg);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;;
+}
+
+a.btn-primary:hover::before {
+    opacity: 1;
+    transform: translate(50%, 50%) rotate(0deg);
+}
+
+
+
+/* Add a 360-degree flip animation to the Update button on hover */
+form button.btn-warning:hover {
+    transform: rotateY(180deg);
+    transition: transform 0.3s ease-in-out;
+}
+
+

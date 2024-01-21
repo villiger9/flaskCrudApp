@@ -6,7 +6,6 @@
     <title>Flask CRUD App</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-
 </head>
 <body>
     <div class="container mt-5">
@@ -24,6 +23,7 @@
     {% endwith %}
         <h1 class="mb-4">Welcome to the Flask CRUD App!</h1>
 
+        <!-- Updated Add Task Button with Bounce Animation -->
         <a href="{{ url_for('add_task') }}" class="btn btn-primary mb-3">Add a Task</a>
 
         <h2>Tasks:</h2>
@@ -32,9 +32,11 @@
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     {{ task.title }} - {{ task.description }}
                     <div class="btn-group" role="group">
+                        <!-- Updated Update Button with Pulse Animation -->
                         <form method="POST" action="{{ url_for('update_task', task_id=task.id) }}">
                             <button type="submit" class="btn btn-warning btn-sm">Update</button>
                         </form>
+                        <!-- Updated Delete Button with Cartoonish Flame Animation -->
                         <form method="POST" action="{{ url_for('delete_task', task_id=task.id) }}">
                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                         </form>
